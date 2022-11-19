@@ -27,6 +27,7 @@ var cd_timer: float = 0.0
 var is_attack_ready: bool = true
 var proj_speed: float = 200.0
 
+var health = 50.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -88,6 +89,14 @@ func attack(attack_player: bool = true):
 			is_attack_ready = false
 			cur_state = State.TRACK
 
+
+func _on_damage(amount):
+	health -= amount
+	
+	print(health)
+	
+	if(health <= 0):
+		queue_free()
 
 
 func flee():

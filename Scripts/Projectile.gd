@@ -22,7 +22,12 @@ func _process(delta):
 
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if(body.is_in_group("Player")):
+	if(body.is_in_group("Enemy")):
+		connect("hit", body, "_on_damage")
+		emit_signal("hit", damage)
+		#queue_free()
+	
+	elif(body.is_in_group("Player")):
 		connect("hit", body.get_node("./Collider"), "_on_damage")
 		emit_signal("hit", 10.0)
 		queue_free()

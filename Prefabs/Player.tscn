@@ -34,3 +34,5 @@ texture = ExtResource( 3 )
 scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 5 )
 script = ExtResource( 4 )
+
+[connection signal="switch_class" from="." to="AttackController" method="_on_switch_class"]

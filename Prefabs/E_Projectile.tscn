@@ -4,13 +4,15 @@
 [ext_resource path="res://Scripts/BasicEnemyProjectile.gd" type="Script" id=2]
 
 [node name="E_Projectile" type="RigidBody2D" groups=["Enemy_Projectile"]]
-collision_layer = 2
+collision_layer = 0
 gravity_scale = 0.0
 contacts_reported = 2
 contact_monitor = true
 script = ExtResource( 2 )
+life = 3.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
 polygon = PoolVector2Array( -1, -16, -13, 8, -13, 13, -9, 16, 9, 16, 13, 13, 13, 8, 1, -16 )
 
 [node name="Sprite" type="Sprite" parent="."]

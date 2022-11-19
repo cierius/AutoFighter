@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/Blue_Projectile.png" type="Texture" id=1]
+[ext_resource path="res://Prefabs/P_Projectile.tscn" type="PackedScene" id=2]
+
+[node name="Melee_Projectile" instance=ExtResource( 2 )]
+life = 0.35
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 1 )

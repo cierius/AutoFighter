@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal switch_class()
+
 # Movement variables
 export var speed: float = 150
 export var speed_mod: float = 1.0
@@ -23,6 +25,9 @@ func keyboard_input():
 		move(Vector2.LEFT)
 	if(Input.is_action_pressed("right")):
 		move(Vector2.RIGHT)
+	
+	if(Input.is_action_just_pressed("space")):
+		emit_signal("switch_class")
 
 
 func move(dir: Vector2):
