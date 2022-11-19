@@ -82,9 +82,9 @@ func check_range():
 			closest = dist
 			closest_unit = enemy
 	
-	if(show_in_range and closest_unit):
-		$"DEBUG attack_range".points[0] = Vector2.ZERO
-		$"DEBUG attack_range".points[1] = closest_unit.position - get_parent().position
+	#if(show_in_range and closest_unit):
+		#$"DEBUG attack_range".points[0] = Vector2.ZERO
+		#$"DEBUG attack_range".points[1] = closest_unit.position - get_parent().position
 	
 	if(closest_unit):
 		if(closest_unit.position.distance_to(get_parent().position) <= cur_class.attack_range):
@@ -127,7 +127,7 @@ func set_up_classes():
 	Ranger.damage = 7.5
 	Ranger.damage_mod = 0.9
 	Ranger.attack_freq = 0.5
-	Ranger.attack_speed = 200
+	Ranger.attack_speed = 300
 	Ranger.attack_prefab = ranged_proj_prefab
 	
 	Thief.name = "Thief"
@@ -135,7 +135,7 @@ func set_up_classes():
 	Thief.damage = 10.0
 	Thief.damage_mod = 1.0
 	Thief.attack_freq = 0.7
-	Thief.attack_speed = 300
+	Thief.attack_speed = 500
 	Thief.attack_prefab = melee_proj_prefab
 
 

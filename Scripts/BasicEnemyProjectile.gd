@@ -21,7 +21,7 @@ func _process(delta):
 		queue_free()
 
 
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):
 	if(body.is_in_group("Player")):
 		connect("hit", body.get_node("./Collider"), "_on_damage")
 		emit_signal("hit", 10.0)
