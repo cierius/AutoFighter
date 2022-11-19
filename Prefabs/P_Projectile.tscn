@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Prefabs/E_Projectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Green_Projectile.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/Projectile.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Player Scripts/Projectile.gd" type="Script" id=3]
 
 [node name="P_Projectile" instance=ExtResource( 1 )]
 collision_mask = 2
