@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/PlayerController.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Player Scripts/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/AttackController.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Boxy.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/PlayerDefenseController.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Player Scripts/PlayerDefenseController.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=8]
 
@@ -26,7 +26,7 @@ show_in_range = true
 z_index = 2
 points = PoolVector2Array( 0, 0, 0, 0 )
 width = 2.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
+default_color = Color( 0.945098, 1, 0, 0.478431 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
