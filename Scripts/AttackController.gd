@@ -1,6 +1,9 @@
 extends Node2D
 
 signal proj_spawn(damage)
+signal get_class_stats()
+signal get_main_class()
+signal get_alt_class()
 
 enum State { ATTACKING, DEFENDING, CHECKING, IDLE}
 var cur_state = State.CHECKING
@@ -14,12 +17,12 @@ class Class:
 	var attack_speed: int = 100
 	var attack_prefab: PackedScene
 
-var Ranger: Class = Class.new()
-var Thief: Class = Class.new()
+#var Ranger: Class = Class.new()
+#var Thief: Class = Class.new()
 
-var main_class: Class
-var alt_class: Class
-var cur_class: Class
+var main_class
+var alt_class
+var cur_class
 
 # Attack range variables
 export var shape: Shape2D # The collision shape we use for raycasting
@@ -34,12 +37,11 @@ onready var melee_proj_prefab: PackedScene = load("res://Prefabs/P_Melee_Project
 var attack_timer: float = 0.0
 
 func _ready():
-	set_up_classes()
-	
-	main_class = Ranger
-	alt_class = Thief
+	main_class = get_node("../ClassManager").call("_get_main_class")
+	alt_class = get_node("../ClassManager").call("_get_alt_class")
 	
 	cur_class = main_class
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,7 +64,7 @@ func check_range():
 	
 	# Shape casting the area around the player
 	var query = Physics2DShapeQueryParameters.new()
-	shape.radius = cur_class.attack_range
+	shape.radius = cur_class["attack_range"]
 	query.shape_rid = shape.get_rid()
 	query.transform = global_transform
 	
@@ -93,8 +95,8 @@ func check_range():
 
 
 func attack(unit):
-	if(attack_timer >= cur_class.attack_freq):
-		var inst = cur_class.attack_prefab.instance()
+	if(attack_timer >= cur_class["attack_freq"]):
+		var inst = cur_class["attack_prefab"].instance()
 		
 		inst.position = get_parent().position
 		
@@ -104,40 +106,12 @@ func attack(unit):
 		get_tree().get_root().call_deferred("add_child", inst)
 		inst.look_at(unit.position)
 		inst.apply_impulse(Vector2(), (get_parent().position - unit.position).normalized() * -cur_class.attack_speed)
-		#print("attacking " + str(unit))
 		
 		attack_timer = 0
 		
-
 
 func _on_switch_class():
 	if(cur_class == main_class):
 		cur_class = alt_class
 	else:
 		cur_class = main_class
-		
-	print("Switched Class To: " + cur_class.name)
-	
-
-
-# Set up the classes below here --- I don't know a better way to do this class system with Godot
-func set_up_classes():
-	Ranger.name = "Ranger"
-	Ranger.attack_range = 300
-	Ranger.damage = 7.5
-	Ranger.damage_mod = 0.9
-	Ranger.attack_freq = 0.5
-	Ranger.attack_speed = 300
-	Ranger.attack_prefab = ranged_proj_prefab
-	
-	Thief.name = "Thief"
-	Thief.attack_range = 125
-	Thief.damage = 10.0
-	Thief.damage_mod = 1.0
-	Thief.attack_freq = 0.7
-	Thief.attack_speed = 500
-	Thief.attack_prefab = melee_proj_prefab
-
-
-
-
