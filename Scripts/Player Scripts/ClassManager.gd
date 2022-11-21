@@ -17,10 +17,13 @@ class Class:
 		"attack_freq": 1.0,
 		"attack_speed": 100,
 		"attack_prefab": PackedScene,
+		"attack_sprite": Texture,
 		
 		"health_base": 100.0,
 		"health_mod": 1.0,
 		"health_regen": 1.0,
+		
+		"defense": 1.0,
 		
 		"speed": 150.0,
 		"speed_mod": 1.0,
@@ -36,8 +39,9 @@ var Bard: Class = Class.new()
 var Mecha_Human: Class = Class.new()
 
 var ranged_proj_prefab: PackedScene = preload("res://Prefabs/P_Projectile.tscn")
-var melee_proj_prefab: PackedScene = preload("res://Prefabs/P_Melee_Projectile.tscn")
-
+export var ranged_proj_sprite: Texture
+var melee_proj_prefab: PackedScene = preload("res://Prefabs/P_Dagger.tscn")
+export var melee_proj_sprite: Texture
 
 var main_class: Class
 var alt_class: Class
@@ -69,7 +73,8 @@ func _switch_class():
 		cur_class = alt_class
 	else:
 		cur_class = main_class
-		
+	
+	emit_signal("send_class_stats", cur_class.stats)
 	return cur_class.stats
 
 
@@ -82,6 +87,8 @@ func set_up_classes():
 	Ranger.stats["attack_freq"] = 0.5
 	Ranger.stats["attack_speed"] = 500
 	Ranger.stats["attack_prefab"] = ranged_proj_prefab
+	Ranger.stats["attack_sprite"] = ranged_proj_sprite
+	Ranger.stats["defense"] = 0.9
 	Ranger.stats["health_base"] = 75.0
 	Ranger.stats["health_mod"] = 1.0
 	Ranger.stats["health_regen"] = 0.75
@@ -96,6 +103,8 @@ func set_up_classes():
 	Thief.stats["attack_freq"] = 0.2
 	Thief.stats["attack_speed"] = 750
 	Thief.stats["attack_prefab"] = melee_proj_prefab
+	Thief.stats["attack_sprite"] = melee_proj_sprite
+	Thief.stats["defense"] = 0.8
 	Thief.stats["health_base"] = 85.0
 	Thief.stats["health_mod"] = 1.0
 	Thief.stats["health_regen"] = 0.75

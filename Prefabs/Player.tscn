@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player Scripts/PlayerController.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/AttackController.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Player Scripts/AttackController.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Boxy.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Player Scripts/PlayerDefenseController.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Player Scripts/ClassManager.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/CurrentWeapon.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/Green_Projectile.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Dagger.png" type="Texture" id=8]
 
 [sub_resource type="CircleShape2D" id=8]
 
@@ -31,6 +34,9 @@ default_color = Color( 0.945098, 1, 0, 0.478431 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
+[node name="Weapon" type="Sprite" parent="Sprite"]
+script = ExtResource( 6 )
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 5 )
@@ -38,10 +44,14 @@ script = ExtResource( 4 )
 
 [node name="ClassManager" type="Node2D" parent="."]
 script = ExtResource( 5 )
+ranged_proj_sprite = ExtResource( 7 )
+melee_proj_sprite = ExtResource( 8 )
 
 [connection signal="get_class_stats" from="." to="ClassManager" method="_get_class_stats"]
-[connection signal="switch_class" from="." to="ClassManager" method="_switch_class"]
 [connection signal="switch_class" from="." to="AttackController" method="_on_switch_class"]
+[connection signal="switch_class" from="." to="ClassManager" method="_switch_class"]
 [connection signal="get_alt_class" from="AttackController" to="ClassManager" method="_get_alt_class"]
 [connection signal="get_class_stats" from="AttackController" to="ClassManager" method="_get_class_stats"]
 [connection signal="get_main_class" from="AttackController" to="ClassManager" method="_get_main_class"]
+[connection signal="send_class_stats" from="ClassManager" to="Collider" method="_on_class_switch"]
+[connection signal="send_class_stats" from="ClassManager" to="Sprite/Weapon" method="_on_switch_class"]

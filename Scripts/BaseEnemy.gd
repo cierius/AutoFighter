@@ -29,6 +29,10 @@ var proj_speed: float = 200.0
 
 var health = 50.0
 
+
+func _enter_tree():
+	player = get_node("../Player")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if(cur_state == State.TRACK):

@@ -8,17 +8,6 @@ signal get_alt_class()
 enum State { ATTACKING, DEFENDING, CHECKING, IDLE}
 var cur_state = State.CHECKING
 
-class Class:
-	var name: String
-	var damage: float = 10.0
-	var damage_mod: float = 1.0
-	var attack_range: int = 100
-	var attack_freq: float = 1.0 # Attacks per sec
-	var attack_speed: int = 100
-	var attack_prefab: PackedScene
-
-#var Ranger: Class = Class.new()
-#var Thief: Class = Class.new()
 
 var main_class
 var alt_class
@@ -33,7 +22,7 @@ var check_freq: float = 0.05 # Time in secs until the next range scan
 var elapsed_time: float = 0.0
 
 onready var ranged_proj_prefab: PackedScene = load("res://Prefabs/P_Projectile.tscn")
-onready var melee_proj_prefab: PackedScene = load("res://Prefabs/P_Melee_Projectile.tscn")
+onready var melee_proj_prefab: PackedScene = load("res://Prefabs/P_Dagger.tscn")
 var attack_timer: float = 0.0
 
 func _ready():

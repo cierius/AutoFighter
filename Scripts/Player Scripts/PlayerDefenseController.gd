@@ -11,6 +11,8 @@ var defense_mod: float = 1.0
 func _ready():
 	hp_bar.max_value = health_base * health_mod
 	hp_bar.value = health
+	
+	defense_mod = get_node("../ClassManager").call("_get_class_stats")["defense"]
 
 func _on_damage(amount: float):
 	health -= amount * defense_mod
@@ -21,3 +23,8 @@ func _on_damage(amount: float):
 	
 	if(health <= 0.0):
 		print("GAME OVER - Player has been defeated!")
+		
+
+func _on_class_switch(stats):
+	defense_mod = stats["defense"]
+	print(defense_mod)
