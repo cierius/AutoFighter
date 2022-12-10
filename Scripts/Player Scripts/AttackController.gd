@@ -53,7 +53,7 @@ func check_range():
 	
 	# Shape casting the area around the player
 	var query = Physics2DShapeQueryParameters.new()
-	shape.radius = cur_class["attack_range"]
+	shape.radius = cur_class.stats["attack_range"]
 	query.shape_rid = shape.get_rid()
 	query.transform = global_transform
 	
@@ -78,23 +78,23 @@ func check_range():
 		#$"DEBUG attack_range".points[1] = closest_unit.position - get_parent().position
 	
 	if(closest_unit):
-		if(closest_unit.position.distance_to(get_parent().position) <= cur_class.attack_range):
+		if(closest_unit.position.distance_to(get_parent().position) <= cur_class.stats["attack_range"]):
 			attack(closest_unit)
 	#print("Closest: " + str(closest) + " | Enemies:" + str(enemies_in_range))
 
 
 func attack(unit):
-	if(attack_timer >= cur_class["attack_freq"]):
-		var inst = cur_class["attack_prefab"].instance()
+	if(attack_timer >= cur_class.stats["attack_freq"]):
+		var inst = cur_class.stats["attack_prefab"].instance()
 		
 		inst.position = get_parent().position
 		
 		connect("proj_spawn", inst, "_set_damage")
-		emit_signal("proj_spawn", cur_class.damage * cur_class.damage_mod)
+		emit_signal("proj_spawn", cur_class.stats["damage"] * cur_class.stats["damage_mod"])
 		
 		get_tree().get_root().call_deferred("add_child", inst)
 		inst.look_at(unit.position)
-		inst.apply_impulse(Vector2(), (get_parent().position - unit.position).normalized() * -cur_class.attack_speed)
+		inst.apply_impulse(Vector2(), (get_parent().position - unit.position).normalized() * -cur_class.stats["attack_speed"])
 		
 		attack_timer = 0
 		

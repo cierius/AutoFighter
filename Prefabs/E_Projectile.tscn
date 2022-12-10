@@ -13,10 +13,12 @@ life = 3.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 rotation = 1.5708
+scale = Vector2( 0.5, 1 )
 polygon = PoolVector2Array( -1, -16, -13, 8, -13, 13, -9, 16, 9, 16, 13, 13, 13, 8, 1, -16 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 1.5708
+scale = Vector2( 0.5, 1 )
 texture = ExtResource( 1 )
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

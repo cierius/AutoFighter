@@ -7,11 +7,14 @@ signal get_class_stats()
 export var speed: float = 150
 export var speed_mod: float = 1.0
 
+onready var class_label: Label = get_node("../HUD/Control/ColorRect/Class_Label")
+
 # For passing the framerate delta between functions without hassle
 var global_delta: float
 
-#func _ready():
-	#var stats = $ClassManager.call("get_class_stats")
+func _ready():
+	var cur_class = $ClassManager.call("_get_current_class")
+	class_label.text = cur_class.name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -36,6 +39,9 @@ func keyboard_input():
 		var new_speed = $ClassManager.call("_get_class_stats")
 		speed = new_speed["speed"]
 		speed_mod = new_speed["speed_mod"]
+		
+		var cur_class = $ClassManager.call("_get_current_class")
+		class_label.text = cur_class.name
 
 
 func move(dir: Vector2):
